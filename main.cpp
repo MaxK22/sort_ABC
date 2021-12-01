@@ -1,45 +1,39 @@
 #include <iostream>
+#include <vector>
+#include "time.h"
 
 using namespace std;
 
-int *merge_massive(int *a[], int *b[])
+void bubble_sort(vector<int> &m)
 {
-    int n1 = sizeof(*a), n2 = sizeof(*b);
-    int *c = new int[n1+n2];
-    int *a_now = a[0], *b_now = b[0];
-    for(int i = 0; i < n1+n2; i++)
+    bool f = true;
+    for(int i = 1; i < m.size() && f; i++)
     {
-        if(a_now <= a[n1-1] && (b_now > b[n2-1] || a_now < b_now))
+        f = false;
+        for(int g = 0; g < m.size() - i; g++)
         {
-            c[i] = *a_now;
-            a_now++;
-        }
-        else
-        {
-            c[i] = *b_now;
-            b_now++;
+            if(m[g] > m[g+1])
+            {
+                swap(m[g], m[g+1]);
+                f = true;
+            }
         }
     }
-    return c;
-}
-
-int *merge_sort(int* a, int n0, int n)
-{
-    return merge_massive(merge_sort(a, n0, n/2),
-    merge_sort(a, n0 + (n+1)/2, (n+1)/2));
 }
 
 int main() {
-    int n;
-    cin >> n;
-    int a[n];
-    for(int i = 0; i < n; ++i)
+    vector<int> m;
+    for(int i = 0; i < 10; i++)
     {
-        cin >> a[i];
+        m.push_back(rand()%100);
+        cout << m[i] << " ";
     }
-    merge_sort();
-
-
+    cout << endl;
+    bubble_sort(m);
+    for(int i = 0; i < 10; i++)
+    {
+        cout << m[i] << " ";
+    }
     
     
     
